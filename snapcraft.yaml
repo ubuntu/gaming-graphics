@@ -1,4 +1,4 @@
-name: gaming-graphics-core22
+name: gaming-graphics
 adopt-info: debs
 summary: Shared Mesa stack for gaming
 description: |
@@ -17,7 +17,7 @@ slots:
 package-repositories:
   - type: apt
     url: http://archive.ubuntu.com/ubuntu/
-    suites: [jammy, jammy-updates]
+    suites: [noble, noble-updates]
     components: [main, universe]
     architectures: [amd64, i386]
     key-id: F6ECB3762474EDA9D21B7022871920D1991BC93C
@@ -29,7 +29,7 @@ package-repositories:
 
     # ppa: kisak/kisak-mesa
     url: http://ppa.launchpad.net/kisak/kisak-mesa/ubuntu
-    suites: [jammy]
+    suites: [noble]
     components: [main]
     architectures: [amd64, i386]
     key-id: EB8B81E14DA65431D7504EA8F63F0F2B90935439
@@ -41,11 +41,12 @@ parts:
     stage-packages:
       - libdrm2:i386
       - libdrm2:amd64
-      - libgl1-mesa-glx:i386
-      - libgl1-mesa-glx:amd64
+      - libglx-mesa0:i386
+      - libglx-mesa0:amd64
+      - libgl1:i386
+      - libgl1:amd64
       - libgl1-mesa-dri:i386
       - libgl1-mesa-dri:amd64
-      - libvkd3d1:i386
       - libvkd3d1:amd64
       - mesa-va-drivers:amd64
       - mesa-va-drivers:i386
