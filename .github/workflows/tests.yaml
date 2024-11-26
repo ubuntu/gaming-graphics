@@ -1,0 +1,42 @@
+name: Test graphics stack
+
+on:
+  push:
+    branches:
+      - "oibaf-latest-core22"
+      - "kisak-fresh-core22"
+      - "kisak-turtle-core22"
+  pull_request:
+    branches:
+      - "oibaf-latest-core22"
+      - "kisak-fresh-core22"
+      - "kisak-turtle-core22"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install snapcraft
+        uses: samuelmeuli/action-snapcraft@v1
+
+      - name: setup lxd
+        uses: canonical/setup-lxd@v0.1.0
+        with:
+          channel: latest/stable
+
+      - name: build gaming-graphics-core22
+        run: snapcraft
+
+      - name: install gaming-graphics-core22
+        run: sudo snap install ./gaming-graphics-core22*.snap --dangerous
+
+      - name: install test snap
+        run: sudo snap install gaming-graphics-tests
+
+      - name: connect plug for testing
+        run: sudo snap connect gaming-graphics-tests:gaming-mesa gaming-graphics-core22
+
+      - name: run test
+        run: xvfb-run -a -s "-screen 0 1400x900x24 +extension RANDR" -- snap run gaming-graphics-tests
