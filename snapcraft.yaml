@@ -45,6 +45,8 @@ parts:
       - libgl1-mesa-dri:amd64
       - libvkd3d1:i386
       - libvkd3d1:amd64
+      - libvulkan1:i386
+      - libvulkan1:amd64
       - mesa-va-drivers:amd64
       - mesa-va-drivers:i386
       - mesa-vdpau-drivers:amd64
